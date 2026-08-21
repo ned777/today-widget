@@ -58,12 +58,25 @@
                 android:resource="@xml/month_widget_info" />
         </receiver>
 
+        <!-- The round clock widget's brain — same shape as DateWidgetProvider above. -->
+        <receiver
+            android:name=".ClockWidgetProvider"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/clock_widget_info" />
+        </receiver>
+
         <!--
-          Repaints both widgets whenever the system tells us the date, time,
-          or timezone changed — see DateChangeReceiver.kt for why. These
-          three actions are specifically exempted from Android 8's crackdown
-          on implicit (manifest-declared) broadcasts, so this keeps working
-          even though the app itself might not be running.
+          Repaints both the date and month widgets whenever the system tells
+          us the date, time, or timezone changed — see DateChangeReceiver.kt
+          for why. These three actions are specifically exempted from
+          Android 8's crackdown on implicit (manifest-declared) broadcasts,
+          so this keeps working even though the app itself might not be
+          running.
         -->
         <receiver
             android:name=".DateChangeReceiver"
@@ -74,6 +87,17 @@
                 <action android:name="android.intent.action.TIMEZONE_CHANGED" />
             </intent-filter>
         </receiver>
+
+        <!--
+          NOT triggered by any system broadcast — only ever reached via the
+          explicit PendingIntent that ClockTickReceiver.scheduleNextTick()
+          hands to AlarmManager, which is why it needs no <intent-filter> of
+          its own. Still has to be declared here so that PendingIntent keeps
+          resolving even if our app's process isn't currently running.
+        -->
+        <receiver
+            android:name=".ClockTickReceiver"
+            android:exported="false" />
 
     </application>
 
