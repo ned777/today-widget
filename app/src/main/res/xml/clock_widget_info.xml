@@ -8,8 +8,8 @@
   aggressive battery optimizer).
 -->
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
-    android:minWidth="110dp"
-    android:minHeight="110dp"
+    android:minWidth="130dp"
+    android:minHeight="130dp"
     android:minResizeWidth="90dp"
     android:minResizeHeight="90dp"
     android:targetCellWidth="2"
