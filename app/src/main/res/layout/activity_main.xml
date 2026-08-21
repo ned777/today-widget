@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  MainActivity's screen — what opens when either widget (or the app icon)
+  is tapped. There's nothing to configure here (neither widget needs any
+  setup), so this is just a simple "today" confirmation screen using the
+  same color language as both widgets.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="24dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_title"
+        android:textColor="@color/retro_yellow"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:letterSpacing="0.1"
+        android:shadowColor="@color/retro_yellow"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="12"
+        android:layout_marginBottom="4dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_subtitle"
+        android:textColor="@color/retro_white_dim"
+        android:textSize="13sp"
+        android:textStyle="italic"
+        android:layout_marginBottom="32dp" />
+
+    <TextView
+        android:id="@+id/weekdayMonthText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/retro_teal"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:letterSpacing="0.1"
+        android:text="--" />
+
+    <TextView
+        android:id="@+id/bigDayText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/retro_pink"
+        android:textSize="72sp"
+        android:textStyle="bold"
+        android:shadowColor="@color/retro_pink"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="16"
+        android:text="--" />
+
+    <TextView
+        android:id="@+id/fullDateText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:textColor="@color/retro_white"
+        android:textSize="14sp"
+        android:text="--" />
+
+</LinearLayout>

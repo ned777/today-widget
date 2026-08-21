@@ -1,0 +1,8 @@
+<!--
+  Overridden on Android 12+ (API 31) by values-v31/dimens.xml, which points
+  this at the system's own enforced widget corner radius instead — see that
+  file for why.
+-->
+<resources>
+    <dimen name="widget_corner_radius">20dp</dimen>
+</resources>

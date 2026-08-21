@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  The larger month-grid widget: current month only, no navigation (there's
+  nothing to tap to change months — the whole point is it always shows
+  "now"). A month title, a row of weekday-abbreviation headers, then a fixed
+  6x7 grid of day cells. The grid is fully static XML rather than a
+  RemoteViewsService-backed list — a calendar month is always exactly 6 rows
+  of 7 columns, so there's nothing dynamic about its SHAPE, only its
+  contents, which MonthWidgetProvider.kt fills in (and blanks out any cells
+  that fall outside the current month) every time it redraws.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/monthWidgetRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/widget_outline_background"
+    android:paddingTop="10dp"
+    android:paddingBottom="8dp"
+    android:paddingStart="10dp"
+    android:paddingEnd="10dp">
+
+    <TextView
+        android:id="@+id/monthTitleText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/retro_white"
+        android:textStyle="bold"
+        android:textSize="15sp"
+        android:letterSpacing="0.04"
+        android:layout_marginBottom="6dp"
+        android:text="--" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="2dp">
+        <TextView android:id="@+id/header_0" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:textColor="@color/retro_teal" android:textStyle="bold" android:textSize="11sp" android:letterSpacing="0.05" android:text="--" />
+        <TextView android:id="@+id/header_1" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:textColor="@color/retro_teal" android:textStyle="bold" android:textSize="11sp" android:letterSpacing="0.05" android:text="--" />
+        <TextView android:id="@+id/header_2" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:textColor="@color/retro_teal" android:textStyle="bold" android:textSize="11sp" android:letterSpacing="0.05" android:text="--" />
+        <TextView android:id="@+id/header_3" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:textColor="@color/retro_teal" android:textStyle="bold" android:textSize="11sp" android:letterSpacing="0.05" android:text="--" />
+        <TextView android:id="@+id/header_4" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:textColor="@color/retro_teal" android:textStyle="bold" android:textSize="11sp" android:letterSpacing="0.05" android:text="--" />
+        <TextView android:id="@+id/header_5" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:textColor="@color/retro_teal" android:textStyle="bold" android:textSize="11sp" android:letterSpacing="0.05" android:text="--" />
+        <TextView android:id="@+id/header_6" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:textColor="@color/retro_teal" android:textStyle="bold" android:textSize="11sp" android:letterSpacing="0.05" android:text="--" />
+    </LinearLayout>
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:orientation="horizontal">
+        <TextView android:id="@+id/cell_0_0" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:textColor="@color/retro_white" android:textSize="13sp" android:text="" />
+        <TextView android:id="@+id/cell_0_1" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:textColor="@color/retro_white" android:textSize="13sp" android:text="" />
+        <TextView android:id="@+id/cell_0_2" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:textColor="@color/retro_white" android:textSize="13sp" android:text="" />
+        <TextView android:id="@+id/cell_0_3" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:textColor="@color/retro_white" android:textSize="13sp" android:text="" />
+        <TextView android:id="@+id/cell_0_4" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:textColor="@color/retro_white" android:textSize="13sp" android:text="" />
+        <TextView android:id="@+id/cell_0_5" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:textColor="@color/retro_white" android:textSize="13sp" android:text="" />
+        <TextView android:id="@+id/cell_0_6" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:textColor="@color/retro_white" android:textSize="13sp" android:text="" />
+    </LinearLayout>
+    <LinearLayout android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:orientation="horizontal">
+        <TextView android:id="@+id/cell_1_0" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:textColor="@color/retro_white" android:textSize="13sp" android:text="" />
+        <TextView android:id="@+id/cell_1_1" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:textColor="@color/retro_white" android:textSize="13sp" android:text="" />
+        <TextView android:id="@+id/cell_1_2" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:textColor="@color/retro_white" android:textSize="13sp" android:text="" />
+        <TextView android:id="@+id/cell_1_3" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:textColor="@color/retro_white" android:textSize="13sp" android:text="" />
+        <TextView android:id="@+id/cell_1_4" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:textColor="@color/retro_white" android:textSize="13sp" android:text="" />
+        <TextView android:id="@+id/cell_1_5" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:textColor="@color/retro_white" android:textSize="13sp" android:text="" />
+        <TextView android:id="@+id/cell_1_6" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:textColor="@color/retro_white" android:textSize="13sp" android:text="" />
+    </LinearLayout>
+    <LinearLayout android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:orientation="horizontal">
+        <TextView android:id="@+id/cell_2_0" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:textColor="@color/retro_white" android:textSize="13sp" android:text="" />
+        <TextView android:id="@+id/cell_2_1" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:textColor="@color/retro_white" android:textSize="13sp" android:text="" />
+        <TextView android:id="@+id/cell_2_2" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:textColor="@color/retro_white" android:textSize="13sp" android:text="" />
+        <TextView android:id="@+id/cell_2_3" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:textColor="@color/retro_white" android:textSize="13sp" android:text="" />
+        <TextView android:id="@+id/cell_2_4" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:textColor="@color/retro_white" android:textSize="13sp" android:text="" />
+        <TextView android:id="@+id/cell_2_5" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:textColor="@color/retro_white" android:textSize="13sp" android:text="" />
+        <TextView android:id="@+id/cell_2_6" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:textColor="@color/retro_white" android:textSize="13sp" android:text="" />
+    </LinearLayout>
+    <LinearLayout android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:orientation="horizontal">
+        <TextView android:id="@+id/cell_3_0" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:textColor="@color/retro_white" android:textSize="13sp" android:text="" />
+        <TextView android:id="@+id/cell_3_1" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:textColor="@color/retro_white" android:textSize="13sp" android:text="" />
+        <TextView android:id="@+id/cell_3_2" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:textColor="@color/retro_white" android:textSize="13sp" android:text="" />
+        <TextView android:id="@+id/cell_3_3" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:textColor="@color/retro_white" android:textSize="13sp" android:text="" />
+        <TextView android:id="@+id/cell_3_4" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:textColor="@color/retro_white" android:textSize="13sp" android:text="" />
+        <TextView android:id="@+id/cell_3_5" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:textColor="@color/retro_white" android:textSize="13sp" android:text="" />
+        <TextView android:id="@+id/cell_3_6" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:textColor="@color/retro_white" android:textSize="13sp" android:text="" />
+    </LinearLayout>
+    <LinearLayout android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:orientation="horizontal">
+        <TextView android:id="@+id/cell_4_0" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:textColor="@color/retro_white" android:textSize="13sp" android:text="" />
+        <TextView android:id="@+id/cell_4_1" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:textColor="@color/retro_white" android:textSize="13sp" android:text="" />
+        <TextView android:id="@+id/cell_4_2" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:textColor="@color/retro_white" android:textSize="13sp" android:text="" />
+        <TextView android:id="@+id/cell_4_3" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:textColor="@color/retro_white" android:textSize="13sp" android:text="" />
+        <TextView android:id="@+id/cell_4_4" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:textColor="@color/retro_white" android:textSize="13sp" android:text="" />
+        <TextView android:id="@+id/cell_4_5" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:textColor="@color/retro_white" android:textSize="13sp" android:text="" />
+        <TextView android:id="@+id/cell_4_6" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:textColor="@color/retro_white" android:textSize="13sp" android:text="" />
+    </LinearLayout>
+    <LinearLayout android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:orientation="horizontal">
+        <TextView android:id="@+id/cell_5_0" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:textColor="@color/retro_white" android:textSize="13sp" android:text="" />
+        <TextView android:id="@+id/cell_5_1" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:textColor="@color/retro_white" android:textSize="13sp" android:text="" />
+        <TextView android:id="@+id/cell_5_2" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:textColor="@color/retro_white" android:textSize="13sp" android:text="" />
+        <TextView android:id="@+id/cell_5_3" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:textColor="@color/retro_white" android:textSize="13sp" android:text="" />
+        <TextView android:id="@+id/cell_5_4" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:textColor="@color/retro_white" android:textSize="13sp" android:text="" />
+        <TextView android:id="@+id/cell_5_5" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:textColor="@color/retro_white" android:textSize="13sp" android:text="" />
+        <TextView android:id="@+id/cell_5_6" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:textColor="@color/retro_white" android:textSize="13sp" android:text="" />
+    </LinearLayout>
+</LinearLayout>

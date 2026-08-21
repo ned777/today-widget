@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Shared background for both widgets: a flat dark card with a crisp 2dp
+  yellow retro outline. Used as android:background on each widget's root
+  layout.
+-->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/widget_bg" />
+            <corners android:radius="@dimen/widget_corner_radius" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <stroke
+                android:width="2dp"
+                android:color="@color/retro_yellow" />
+            <corners android:radius="@dimen/widget_corner_radius" />
+        </shape>
+    </item>
+</layer-list>

@@ -1,0 +1,9 @@
+<!--
+  Android 12+ launchers enforce their own rounded-corner mask on every
+  home-screen widget regardless of what corner radius the widget's own
+  background asks for. Pointing our radius at the system's own value keeps
+  our drawn border lined up with that mask instead of getting clipped.
+-->
+<resources>
+    <item name="widget_corner_radius" type="dimen">@android:dimen/system_app_widget_background_radius</item>
+</resources>

@@ -1,0 +1,19 @@
+<!--
+  Every named color the app uses, in one place. The theme is a dark retro card
+  with a thin yellow outline and three accent colors, one per piece of text:
+  the weekday label (teal), the month label (white), and the big day number /
+  "today" highlight (reddish-pink).
+-->
+<resources>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+
+    <!-- Flat near-black fill behind both widgets and the app's own screen. -->
+    <color name="widget_bg">#0B0B10</color>
+
+    <color name="retro_yellow">#FFD400</color>
+    <color name="retro_pink">#FF4F87</color>
+    <color name="retro_teal">#00E0B8</color>
+    <color name="retro_white">#F5F5FF</color>
+    <color name="retro_white_dim">#8C8C99</color>
+</resources>

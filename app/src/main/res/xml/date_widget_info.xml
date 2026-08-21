@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Small square "today" glance widget. updatePeriodMillis is a 30-minute
+  safety-net timer (Android's enforced minimum) in case DateChangeReceiver's
+  midnight broadcast is ever delayed/dropped by the OS — the actual "flip
+  over at midnight" refresh is driven by that receiver, not this timer. No
+  `configure` activity: there's nothing to set up, every instance just shows
+  today.
+-->
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:minWidth="110dp"
+    android:minHeight="110dp"
+    android:minResizeWidth="90dp"
+    android:minResizeHeight="90dp"
+    android:targetCellWidth="2"
+    android:targetCellHeight="2"
+    android:updatePeriodMillis="1800000"
+    android:initialLayout="@layout/widget_date"
+    android:resizeMode="horizontal|vertical"
+    android:widgetCategory="home_screen" />

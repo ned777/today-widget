@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  The manifest is the "table of contents" for the whole app — Android reads
+  this file before running any code to find out what components (screens,
+  broadcast receivers) exist and how the OS should route to each one.
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.TodayWidget">
+
+        <!--
+          The screen either widget opens when tapped. The <intent-filter>
+          with action MAIN + category LAUNCHER is also what makes this show
+          up in the app drawer.
+        -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:theme="@style/Theme.TodayWidget">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!--
+          The small "Fri Aug / 21" widget's brain. exported="false" — only
+          the OS itself (which is always allowed to, regardless of this
+          flag) delivers it the standard widget lifecycle broadcasts; no
+          other app can poke it directly.
+        -->
+        <receiver
+            android:name=".DateWidgetProvider"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/date_widget_info" />
+        </receiver>
+
+        <!-- The month-grid widget's brain — same shape as DateWidgetProvider above. -->
+        <receiver
+            android:name=".MonthWidgetProvider"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/month_widget_info" />
+        </receiver>
+
+        <!--
+          Repaints both widgets whenever the system tells us the date, time,
+          or timezone changed — see DateChangeReceiver.kt for why. These
+          three actions are specifically exempted from Android 8's crackdown
+          on implicit (manifest-declared) broadcasts, so this keeps working
+          even though the app itself might not be running.
+        -->
+        <receiver
+            android:name=".DateChangeReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.DATE_CHANGED" />
+                <action android:name="android.intent.action.TIME_SET" />
+                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+            </intent-filter>
+        </receiver>
+
+    </application>
+
+</manifest>
