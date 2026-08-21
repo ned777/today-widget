@@ -10,8 +10,9 @@ import android.widget.RemoteViews
  * The larger month-grid widget: current month only, laid out as a fixed 6x7
  * grid (see widget_month.xml and CalendarUtil.buildMonthGrid()). There's no
  * previous/next-month navigation by design — the whole point, like iOS's
- * equivalent, is that it always just shows "now"; tapping it opens
- * MainActivity instead of paging the calendar (see WidgetLaunch.kt).
+ * equivalent, is that it always just shows "now"; tapping it hands off to
+ * the phone's own default calendar app instead of paging in place (see
+ * WidgetLaunch.kt).
  *
  * Staying current across midnight is handled the same way as
  * DateWidgetProvider — see DateChangeReceiver.kt.
@@ -77,7 +78,7 @@ class MonthWidgetProvider : AppWidgetProvider() {
                 }
             }
 
-            views.setOnClickPendingIntent(R.id.monthWidgetRoot, WidgetLaunch.openAppPendingIntent(context, id))
+            views.setOnClickPendingIntent(R.id.monthWidgetRoot, WidgetLaunch.openCalendarPendingIntent(context, id))
 
             manager.updateAppWidget(id, views)
         }

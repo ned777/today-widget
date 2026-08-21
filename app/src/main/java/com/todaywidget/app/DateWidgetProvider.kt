@@ -10,7 +10,7 @@ import android.widget.RemoteViews
  * The small "Fri Aug / 21" widget — an iOS-calendar-icon-style glance at
  * today's date. There's nothing to configure and nothing to fetch; every
  * instance always just shows today, computed fresh each time it redraws.
- * Tapping it opens MainActivity (see WidgetLaunch.kt).
+ * Tapping it opens the phone's own default calendar app (see WidgetLaunch.kt).
  *
  * Staying current (instead of freezing on whatever date it happened to be
  * drawn on) is handled by DateChangeReceiver, which calls updateAll() below
@@ -35,7 +35,7 @@ class DateWidgetProvider : AppWidgetProvider() {
             views.setTextViewText(R.id.weekdayText, CalendarUtil.weekdayAbbrev(today))
             views.setTextViewText(R.id.monthText, CalendarUtil.monthAbbrev(today))
             views.setTextViewText(R.id.dayText, today.dayOfMonth.toString())
-            views.setOnClickPendingIntent(R.id.dateWidgetRoot, WidgetLaunch.openAppPendingIntent(context, id))
+            views.setOnClickPendingIntent(R.id.dateWidgetRoot, WidgetLaunch.openCalendarPendingIntent(context, id))
 
             manager.updateAppWidget(id, views)
         }
