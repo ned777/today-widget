@@ -30,13 +30,19 @@
         </activity>
 
         <!--
-          The small "Fri Aug / 21" widget's brain. exported="false" — only
-          the OS itself (which is always allowed to, regardless of this
-          flag) delivers it the standard widget lifecycle broadcasts; no
-          other app can poke it directly.
+          The small "Fri Aug / 21" widget's brain. android:label overrides
+          the app's own label just for this component, so the two widgets
+          show up as distinctly named entries — "Today Clock" and "Today
+          Calendar" — when you go to add a widget, instead of two
+          identical-looking "Today" entries you'd have to tell apart by
+          preview thumbnail alone. exported="false" — only the OS itself
+          (which is always allowed to, regardless of this flag) delivers it
+          the standard widget lifecycle broadcasts; no other app can poke it
+          directly.
         -->
         <receiver
             android:name=".DateWidgetProvider"
+            android:label="@string/widget_label_date"
             android:exported="false">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -49,6 +55,7 @@
         <!-- The month-grid widget's brain — same shape as DateWidgetProvider above. -->
         <receiver
             android:name=".MonthWidgetProvider"
+            android:label="@string/widget_label_month"
             android:exported="false">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -56,18 +63,6 @@
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/month_widget_info" />
-        </receiver>
-
-        <!-- The round clock widget's brain — same shape as DateWidgetProvider above. -->
-        <receiver
-            android:name=".ClockWidgetProvider"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-            </intent-filter>
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/clock_widget_info" />
         </receiver>
 
         <!--
@@ -87,17 +82,6 @@
                 <action android:name="android.intent.action.TIMEZONE_CHANGED" />
             </intent-filter>
         </receiver>
-
-        <!--
-          NOT triggered by any system broadcast — only ever reached via the
-          explicit PendingIntent that ClockTickReceiver.scheduleNextTick()
-          hands to AlarmManager, which is why it needs no <intent-filter> of
-          its own. Still has to be declared here so that PendingIntent keeps
-          resolving even if our app's process isn't currently running.
-        -->
-        <receiver
-            android:name=".ClockTickReceiver"
-            android:exported="false" />
 
     </application>
 

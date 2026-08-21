@@ -2,4 +2,8 @@
     <string name="app_name">Today</string>
     <string name="app_title">Today</string>
     <string name="app_subtitle">Created by Ned Nguyen</string>
+
+    <!-- Shown as each widget's own name in the OS's "add a widget" picker. -->
+    <string name="widget_label_date">Today Clock</string>
+    <string name="widget_label_month">Today Calendar</string>
 </resources>
