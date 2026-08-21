@@ -6,7 +6,7 @@
     <style name="Theme.TodayWidget" parent="Theme.MaterialComponents.NoActionBar">
         <item name="colorPrimary">@color/retro_teal</item>
         <item name="colorPrimaryDark">@color/black</item>
-        <item name="colorAccent">@color/retro_pink</item>
+        <item name="colorAccent">@color/retro_cyan</item>
         <item name="android:windowBackground">@color/widget_bg</item>
         <item name="android:textColorPrimary">@color/retro_white</item>
         <item name="android:textColorSecondary">@color/retro_white</item>

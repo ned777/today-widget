@@ -12,7 +12,7 @@
     android:orientation="vertical"
     android:gravity="center"
     android:background="@drawable/widget_outline_background"
-    android:padding="8dp">
+    android:padding="2dp">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -25,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/retro_teal"
-            android:textSize="14sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             android:letterSpacing="0.08"
             android:shadowColor="@color/retro_teal"
@@ -44,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/retro_white"
-            android:textSize="14sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             android:letterSpacing="0.08"
             android:text="--" />
@@ -55,14 +55,14 @@
         android:id="@+id/dayText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:textColor="@color/retro_pink"
-        android:textSize="44sp"
+        android:layout_marginTop="0dp"
+        android:textColor="@color/retro_cyan"
+        android:textSize="72sp"
         android:textStyle="bold"
-        android:shadowColor="@color/retro_pink"
+        android:shadowColor="@color/retro_cyan"
         android:shadowDx="0"
         android:shadowDy="0"
-        android:shadowRadius="10"
+        android:shadowRadius="12"
         android:text="--" />
 
 </LinearLayout>
