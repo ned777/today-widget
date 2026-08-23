@@ -22,6 +22,13 @@ Both widgets:
 - Open the phone's own default calendar app when tapped, the same way
   tapping iOS's Calendar widgets hands off to the Calendar app.
 
+## Screenshots
+
+<p>
+  <img src="screenshots/today-widgets-home-screen.jpg" width="45%" alt="Both widgets on the home screen, alongside other tiles" />
+  <img src="screenshots/today-widgets-closeup.jpg" width="45%" alt="Close-up of the Today Clock and Today Calendar widgets" />
+</p>
+
 ## Theme
 
 Dark retro cards with a 2dp yellow outline. Weekday labels are teal, the
