@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  Same flat dark card as widget_outline_background.xml, but with a cyan
-  outline instead of yellow — the month-grid widget's own accent, kept
-  visually distinct from the small daily date widget's yellow border.
+  Same flat dark card as widget_outline_background.xml, and now the same
+  teal outline too, matching the rest of the widget family (weather-widget,
+  vehicle-maintenance).
 -->
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
@@ -14,8 +14,8 @@
     <item>
         <shape android:shape="rectangle">
             <stroke
-                android:width="2dp"
-                android:color="@color/retro_cyan" />
+                android:width="4dp"
+                android:color="@color/retro_teal" />
             <corners android:radius="@dimen/widget_corner_radius" />
         </shape>
     </item>
