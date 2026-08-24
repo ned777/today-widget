@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   The daily date widget's background: a true-black (not the app's usual
-  near-black @color/widget_bg) card with a crisp 4dp teal outline, matching
+  near-black @color/widget_bg) card with a crisp 2dp teal outline, matching
   the month-grid widget (widget_outline_background_month.xml) and the other
   widgets in this family (weather-widget, vehicle-maintenance) — pitch
   black is specifically a widget thing, the app screen and launcher icon
@@ -17,7 +17,7 @@
     <item>
         <shape android:shape="rectangle">
             <stroke
-                android:width="4dp"
+                android:width="2dp"
                 android:color="@color/retro_teal" />
             <corners android:radius="@dimen/widget_corner_radius" />
         </shape>
