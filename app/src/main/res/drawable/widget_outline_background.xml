@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  The daily date widget's background: a flat dark card with a crisp 2dp
-  yellow retro outline. The month-grid widget has its own cyan variant, see
-  widget_outline_background_month.xml.
+  The daily date widget's background: a true-black (not the app's usual
+  near-black @color/widget_bg) card with a crisp 2dp yellow retro outline.
+  The month-grid widget has its own cyan variant, see
+  widget_outline_background_month.xml — pitch black is specifically a widget
+  thing, the app screen and launcher icon keep the near-black tone.
 -->
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape android:shape="rectangle">
-            <solid android:color="@color/widget_bg" />
+            <solid android:color="@color/black" />
             <corners android:radius="@dimen/widget_corner_radius" />
         </shape>
     </item>

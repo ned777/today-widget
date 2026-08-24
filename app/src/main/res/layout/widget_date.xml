@@ -28,10 +28,6 @@
         android:textColor="@color/retro_cyan"
         android:textSize="90sp"
         android:textStyle="bold"
-        android:shadowColor="@color/retro_cyan"
-        android:shadowDx="0"
-        android:shadowDy="0"
-        android:shadowRadius="14"
         android:text="--" />
 
     <LinearLayout
@@ -51,10 +47,6 @@
             android:textSize="30sp"
             android:textStyle="bold"
             android:letterSpacing="0.04"
-            android:shadowColor="@color/retro_teal"
-            android:shadowDx="0"
-            android:shadowDy="0"
-            android:shadowRadius="6"
             android:text="--" />
 
         <TextView
