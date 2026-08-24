@@ -64,17 +64,9 @@ class MonthWidgetProvider : AppWidgetProvider() {
                 row.forEachIndexed { c, cell ->
                     val cellId = cellIds[r][c]
                     views.setTextViewText(cellId, cell.dayOfMonth?.toString() ?: "")
-                    if (cell.isToday) {
-                        // The "you are here" reddish-pink circle — see
-                        // drawable/today_circle.xml — with the number itself
-                        // switched to the dark background color so it stays
-                        // readable sitting on top of that solid fill.
-                        views.setInt(cellId, "setBackgroundResource", R.drawable.today_circle)
-                        views.setTextColor(cellId, context.getColor(R.color.widget_bg))
-                    } else {
-                        views.setInt(cellId, "setBackgroundResource", 0)
-                        views.setTextColor(cellId, context.getColor(R.color.retro_white))
-                    }
+                    // "You are here" is just a color swap now — no circle fill.
+                    val color = if (cell.isToday) R.color.retro_cyan else R.color.retro_white
+                    views.setTextColor(cellId, context.getColor(color))
                 }
             }
 
