@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  The daily date widget's background: a flat dark card with a crisp 2dp
-  yellow retro outline. The month-grid widget has its own cyan variant, see
-  widget_outline_background_month.xml.
+  Same flat dark card as widget_outline_background.xml, but with a cyan
+  outline instead of yellow — the month-grid widget's own accent, kept
+  visually distinct from the small daily date widget's yellow border.
 -->
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
@@ -15,7 +15,7 @@
         <shape android:shape="rectangle">
             <stroke
                 android:width="2dp"
-                android:color="@color/retro_yellow" />
+                android:color="@color/retro_cyan" />
             <corners android:radius="@dimen/widget_corner_radius" />
         </shape>
     </item>
