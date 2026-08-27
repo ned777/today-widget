@@ -1,9 +1,9 @@
 package com.todaywidget.app
 
+import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.TextStyle
-import java.time.temporal.WeekFields
 import java.util.Locale
 
 /**
@@ -42,8 +42,7 @@ object CalendarUtil {
     fun buildMonthGrid(date: LocalDate): List<List<MonthCell>> {
         val yearMonth = YearMonth.from(date)
         val firstOfMonth = yearMonth.atDay(1)
-        val firstDayOfWeek = WeekFields.of(Locale.getDefault()).firstDayOfWeek
-        val leadingBlanks = ((firstOfMonth.dayOfWeek.value - firstDayOfWeek.value) + 7) % 7
+        val leadingBlanks = ((firstOfMonth.dayOfWeek.value - DayOfWeek.SUNDAY.value) + 7) % 7
         val daysInMonth = yearMonth.lengthOfMonth()
 
         val cells = mutableListOf<MonthCell>()
@@ -57,15 +56,13 @@ object CalendarUtil {
     }
 
     /**
-     * Weekday header labels ("S M T W T F S" or similar), in the SAME
-     * first-day-of-week order buildMonthGrid() used above — both derive
-     * from the same Locale.getDefault() first-day-of-week setting, so the
-     * headers and the grid underneath them always line up.
+     * Weekday header labels ("S M T W T F S"), in the SAME Sunday-first
+     * order buildMonthGrid() used above, so the headers and the grid
+     * underneath them always line up.
      */
     fun weekdayHeaders(): List<String> {
-        val firstDayOfWeek = WeekFields.of(Locale.getDefault()).firstDayOfWeek
         return (0..6).map { offset ->
-            firstDayOfWeek.plus(offset.toLong())
+            DayOfWeek.SUNDAY.plus(offset.toLong())
                 .getDisplayName(TextStyle.NARROW, Locale.getDefault())
                 .uppercase(Locale.getDefault())
         }
