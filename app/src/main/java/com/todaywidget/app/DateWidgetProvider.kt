@@ -46,16 +46,17 @@ class DateWidgetProvider : AppWidgetProvider() {
             val today = CalendarUtil.today()
             val weekday = CalendarUtil.weekdayAbbrev(today)
             val month = CalendarUtil.monthAbbrev(today)
-            val dayString = today.dayOfMonth.toString()
+            val dayString = "%02d".format(today.dayOfMonth)
 
             views.setTextViewText(R.id.weekdayText, weekday)
             views.setTextViewText(R.id.monthText, month)
             views.setTextViewText(R.id.dayText, dayString)
 
             // The day number's font size is picked fresh every update so its
-            // rendered width always matches headerRow's rendered width — a
-            // one-digit day and a two-digit day (and every different
-            // weekday/month combo) all need a different size to line up.
+            // rendered width always matches headerRow's rendered width — every
+            // different weekday/month combo needs a different size to line up.
+            // dayString is always zero-padded to 2 digits (see above) so this
+            // never has to size a lone digit up to match a 2-char-wide header.
             val metrics = context.resources.displayMetrics
             val headerWidthPx = measureHeaderWidthPx(metrics, weekday, month)
             val daySizeSp = computeDaySizeSp(metrics, headerWidthPx, dayString)
