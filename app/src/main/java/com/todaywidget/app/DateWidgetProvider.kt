@@ -6,6 +6,7 @@ import android.content.ComponentName
 import android.content.Context
 import android.graphics.Paint
 import android.graphics.Typeface
+import android.util.DisplayMetrics
 import android.util.TypedValue
 import android.widget.RemoteViews
 
@@ -25,12 +26,12 @@ import android.widget.RemoteViews
 class DateWidgetProvider : AppWidgetProvider() {
 
     companion object {
-        // Must track widget_date.xml's headerRow styling exactly (bold,
-        // 30sp, 0.04 letter-spacing, 4dp spacer) — this is what lets
-        // measureHeaderWidthPx() below predict how wide that row will
-        // actually render, without RemoteViews giving us any way to ask the
-        // real inflated view for its width directly.
-        private const val HEADER_TEXT_SIZE_SP = 30f
+        // Reference sizes for headerRow (weekday + month). These used to just
+        // describe widget_date.xml's static sp values for measurement
+        // purposes — now they're also what gets rendered, in raw pixels (see
+        // stableMetrics() below), so headerRow no longer inflates when the
+        // system "Display size" (screen zoom) setting is turned up.
+        private const val HEADER_TEXT_SIZE_SP = 26f
         private const val HEADER_LETTER_SPACING = 0.04f
         private const val HEADER_SPACER_DP = 4f
 
@@ -52,23 +53,50 @@ class DateWidgetProvider : AppWidgetProvider() {
             views.setTextViewText(R.id.monthText, month)
             views.setTextViewText(R.id.dayText, dayString)
 
+            // All text sizes are computed in raw pixels off stableMetrics()
+            // rather than left as sp for the host to resolve, so the widget's
+            // physical size only ever tracks the device's real density, never
+            // the user's "Display size" zoom level or the launcher process's
+            // own density snapshot.
+            val metrics = stableMetrics(context)
+            val headerSizePx = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, HEADER_TEXT_SIZE_SP, metrics)
+            views.setTextViewTextSize(R.id.weekdayText, TypedValue.COMPLEX_UNIT_PX, headerSizePx)
+            views.setTextViewTextSize(R.id.monthText, TypedValue.COMPLEX_UNIT_PX, headerSizePx)
+
             // The day number's font size is picked fresh every update so its
             // rendered width always matches headerRow's rendered width — every
             // different weekday/month combo needs a different size to line up.
             // dayString is always zero-padded to 2 digits (see above) so this
             // never has to size a lone digit up to match a 2-char-wide header.
-            val metrics = context.resources.displayMetrics
             val headerWidthPx = measureHeaderWidthPx(metrics, weekday, month)
-            val daySizeSp = computeDaySizeSp(metrics, headerWidthPx, dayString)
-            views.setTextViewTextSize(R.id.dayText, TypedValue.COMPLEX_UNIT_SP, daySizeSp)
+            val daySizePx = computeDaySizePx(metrics, headerWidthPx, dayString)
+            views.setTextViewTextSize(R.id.dayText, TypedValue.COMPLEX_UNIT_PX, daySizePx)
 
             views.setOnClickPendingIntent(R.id.dateWidgetRoot, WidgetLaunch.openCalendarPendingIntent(context, id))
 
             manager.updateAppWidget(id, views)
         }
 
+        // A DisplayMetrics pinned to this device's real, un-zoomed density
+        // (DENSITY_DEVICE_STABLE), so text sized off it stays visually
+        // constant across the "Display size" setting — which works by
+        // temporarily overriding density system-wide — while still scaling
+        // correctly between different physical devices. Font-scale (the
+        // separate, deliberate accessibility text-size setting) still applies
+        // on top of that stable density.
+        private fun stableMetrics(context: Context): DisplayMetrics {
+            val stableDensity = DisplayMetrics.DENSITY_DEVICE_STABLE / DisplayMetrics.DENSITY_DEFAULT.toFloat()
+            val fontScale = context.resources.configuration.fontScale
+            return DisplayMetrics().apply {
+                setTo(context.resources.displayMetrics)
+                density = stableDensity
+                densityDpi = DisplayMetrics.DENSITY_DEVICE_STABLE
+                scaledDensity = stableDensity * fontScale
+            }
+        }
+
         // Width of "<weekday>  <month>" as headerRow will actually render it.
-        private fun measureHeaderWidthPx(metrics: android.util.DisplayMetrics, weekday: String, month: String): Float {
+        private fun measureHeaderWidthPx(metrics: DisplayMetrics, weekday: String, month: String): Float {
             val paint = Paint().apply {
                 typeface = Typeface.DEFAULT_BOLD
                 textSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, HEADER_TEXT_SIZE_SP, metrics)
@@ -81,15 +109,15 @@ class DateWidgetProvider : AppWidgetProvider() {
         // Text width scales linearly with font size for a fixed string, so
         // measuring once at an arbitrary probe size and scaling by the ratio
         // to the target width gives the exact size needed — no iteration.
-        private fun computeDaySizeSp(metrics: android.util.DisplayMetrics, targetWidthPx: Float, dayString: String): Float {
-            val probeSizeSp = 40f
+        private fun computeDaySizePx(metrics: DisplayMetrics, targetWidthPx: Float, dayString: String): Float {
+            val probeSizePx = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 40f, metrics)
             val paint = Paint().apply {
                 typeface = Typeface.DEFAULT_BOLD
-                textSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, probeSizeSp, metrics)
+                textSize = probeSizePx
             }
             val measuredPx = paint.measureText(dayString)
-            if (measuredPx <= 0f) return probeSizeSp
-            return probeSizeSp * (targetWidthPx / measuredPx)
+            if (measuredPx <= 0f) return probeSizePx
+            return probeSizePx * (targetWidthPx / measuredPx)
         }
     }
 

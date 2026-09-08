@@ -2,8 +2,8 @@
 <!--
   The small "glance at today" widget — an iOS-calendar-icon-style square:
   a big day-of-month number on top, weekday + month below it. All three
-  TextViews' text (and dayText's size — see DateWidgetProvider.kt) are set
-  in code; nothing here ever changes except through that.
+  TextViews' text, and all three of their sizes, are set in code (see
+  DateWidgetProvider.kt) — nothing here ever changes except through that.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/dateWidgetRoot"
@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:includeFontPadding="false"
         android:textColor="@color/retro_cyan"
-        android:textSize="90sp"
+        android:textSize="78sp"
         android:textStyle="bold"
         android:text="--" />
 
@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:includeFontPadding="false"
             android:textColor="@color/retro_teal"
-            android:textSize="30sp"
+            android:textSize="26sp"
             android:textStyle="bold"
             android:letterSpacing="0.04"
             android:text="--" />
@@ -61,7 +61,7 @@
             android:layout_height="wrap_content"
             android:includeFontPadding="false"
             android:textColor="@color/retro_white"
-            android:textSize="30sp"
+            android:textSize="26sp"
             android:textStyle="bold"
             android:letterSpacing="0.04"
             android:text="--" />
