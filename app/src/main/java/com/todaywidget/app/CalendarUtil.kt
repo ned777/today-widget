@@ -22,7 +22,9 @@ object CalendarUtil {
 
     // e.g. "AUG" — the small widget's month label.
     fun monthAbbrev(date: LocalDate): String =
-        date.month.getDisplayName(TextStyle.SHORT, Locale.getDefault()).uppercase(Locale.getDefault())
+        date.month.getDisplayName(TextStyle.SHORT, Locale.getDefault())
+            .uppercase(Locale.getDefault())
+            .take(3)
 
     // e.g. "August 2026" — the month grid widget's title line.
     fun monthTitle(date: LocalDate): String =
