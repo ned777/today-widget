@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:includeFontPadding="false"
         android:textColor="@color/retro_cyan"
-        android:textSize="78sp"
+        android:textSize="54sp"
         android:textStyle="bold"
         android:text="--" />
 
@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:includeFontPadding="false"
             android:textColor="@color/retro_teal"
-            android:textSize="26sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             android:letterSpacing="0.04"
             android:text="--" />
@@ -61,7 +61,7 @@
             android:layout_height="wrap_content"
             android:includeFontPadding="false"
             android:textColor="@color/retro_white"
-            android:textSize="26sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             android:letterSpacing="0.04"
             android:text="--" />

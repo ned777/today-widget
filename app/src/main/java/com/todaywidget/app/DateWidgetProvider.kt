@@ -26,12 +26,11 @@ import android.widget.RemoteViews
 class DateWidgetProvider : AppWidgetProvider() {
 
     companion object {
-        // Reference sizes for headerRow (weekday + month). These used to just
-        // describe widget_date.xml's static sp values for measurement
-        // purposes — now they're also what gets rendered, in raw pixels (see
-        // stableMetrics() below), so headerRow no longer inflates when the
-        // system "Display size" (screen zoom) setting is turned up.
-        private const val HEADER_TEXT_SIZE_SP = 26f
+        // Reference size for headerRow (weekday + month) — also what
+        // dayText's width gets matched against below, so the two lines
+        // always line up flush regardless of how wide that day's particular
+        // weekday/month combo happens to render.
+        private const val HEADER_DISPLAY_SIZE_SP = 20f
         private const val HEADER_LETTER_SPACING = 0.04f
         private const val HEADER_SPACER_DP = 4f
 
@@ -59,7 +58,7 @@ class DateWidgetProvider : AppWidgetProvider() {
             // the user's "Display size" zoom level or the launcher process's
             // own density snapshot.
             val metrics = stableMetrics(context)
-            val headerSizePx = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, HEADER_TEXT_SIZE_SP, metrics)
+            val headerSizePx = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, HEADER_DISPLAY_SIZE_SP, metrics)
             views.setTextViewTextSize(R.id.weekdayText, TypedValue.COMPLEX_UNIT_PX, headerSizePx)
             views.setTextViewTextSize(R.id.monthText, TypedValue.COMPLEX_UNIT_PX, headerSizePx)
 
@@ -99,7 +98,7 @@ class DateWidgetProvider : AppWidgetProvider() {
         private fun measureHeaderWidthPx(metrics: DisplayMetrics, weekday: String, month: String): Float {
             val paint = Paint().apply {
                 typeface = Typeface.DEFAULT_BOLD
-                textSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, HEADER_TEXT_SIZE_SP, metrics)
+                textSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, HEADER_DISPLAY_SIZE_SP, metrics)
                 letterSpacing = HEADER_LETTER_SPACING
             }
             val spacerPx = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, HEADER_SPACER_DP, metrics)
