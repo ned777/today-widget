@@ -11,7 +11,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="@drawable/widget_outline_background"
+    android:background="@drawable/widget_outline_background_r26_inset"
     android:padding="0dp">
 
     <!--

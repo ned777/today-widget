@@ -14,11 +14,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/widget_outline_background_month"
-    android:paddingTop="10dp"
-    android:paddingBottom="8dp"
-    android:paddingStart="10dp"
-    android:paddingEnd="10dp">
+    android:background="@drawable/widget_outline_background_r26_inset"
+    android:paddingTop="17dp"
+    android:paddingBottom="12dp"
+    android:paddingStart="14dp"
+    android:paddingEnd="14dp">
 
     <TextView
         android:id="@+id/monthTitleText"
