@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- GENERATED copy of widget_outline_background.xml with a fixed 33dp corner radius.
+     Picked at runtime by WidgetCorners.kt; edit widget_outline_background.xml and regenerate, not this file. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/black" />
+            <corners android:radius="33dp" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <stroke
+                android:width="2dp"
+                android:color="@color/retro_teal" />
+            <corners android:radius="33dp" />
+        </shape>
+    </item>
+</layer-list>

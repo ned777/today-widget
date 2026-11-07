@@ -4,6 +4,7 @@ import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.ComponentName
 import android.content.Context
+import android.os.Bundle
 import android.graphics.Paint
 import android.graphics.Typeface
 import android.util.DisplayMetrics
@@ -43,6 +44,7 @@ class DateWidgetProvider : AppWidgetProvider() {
 
         private fun updateOneWidget(context: Context, manager: AppWidgetManager, id: Int) {
             val views = RemoteViews(context.packageName, R.layout.widget_date)
+            WidgetCorners.apply(views, R.id.dateWidgetRoot, manager, id)
             val today = CalendarUtil.today()
             val weekday = CalendarUtil.weekdayAbbrev(today)
             val month = CalendarUtil.monthAbbrev(today)
@@ -124,5 +126,11 @@ class DateWidgetProvider : AppWidgetProvider() {
     // placed, or (see date_widget_info.xml) on its 30-minute safety-net timer.
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
         appWidgetIds.forEach { updateOneWidget(context, appWidgetManager, it) }
+    }
+
+    // The launcher re-scales the widget when the home-screen grid changes; redraw
+    // so the border radius follows the new scale.
+    override fun onAppWidgetOptionsChanged(context: Context, appWidgetManager: AppWidgetManager, appWidgetId: Int, newOptions: Bundle) {
+        updateOneWidget(context, appWidgetManager, appWidgetId)
     }
 }

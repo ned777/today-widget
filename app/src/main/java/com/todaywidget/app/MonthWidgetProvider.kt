@@ -4,6 +4,7 @@ import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.ComponentName
 import android.content.Context
+import android.os.Bundle
 import android.widget.RemoteViews
 
 /**
@@ -51,6 +52,7 @@ class MonthWidgetProvider : AppWidgetProvider() {
 
         private fun updateOneWidget(context: Context, manager: AppWidgetManager, id: Int) {
             val views = RemoteViews(context.packageName, R.layout.widget_month)
+            WidgetCorners.apply(views, R.id.monthWidgetRoot, manager, id)
             val today = CalendarUtil.today()
 
             views.setTextViewText(R.id.monthTitleText, CalendarUtil.monthTitle(today))
@@ -78,5 +80,11 @@ class MonthWidgetProvider : AppWidgetProvider() {
 
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
         appWidgetIds.forEach { updateOneWidget(context, appWidgetManager, it) }
+    }
+
+    // The launcher re-scales the widget when the home-screen grid changes; redraw
+    // so the border radius follows the new scale.
+    override fun onAppWidgetOptionsChanged(context: Context, appWidgetManager: AppWidgetManager, appWidgetId: Int, newOptions: Bundle) {
+        updateOneWidget(context, appWidgetManager, appWidgetId)
     }
 }
