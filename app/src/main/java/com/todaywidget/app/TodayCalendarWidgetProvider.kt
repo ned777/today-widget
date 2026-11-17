@@ -75,6 +75,15 @@ class TodayCalendarWidgetProvider : AppWidgetProvider() {
 
             MonthWidgetProvider.bindMonth(context, views, today, highlightStyle = true)
 
+            // Hide week rows this month doesn't use (most months need 5, some 4 or 6),
+            // so the remaining rows spread over the full height and the space above
+            // and below the grid stays even instead of a blank 6th row at the bottom.
+            val rowIds = intArrayOf(R.id.comboRow0, R.id.comboRow1, R.id.comboRow2, R.id.comboRow3, R.id.comboRow4, R.id.comboRow5)
+            CalendarUtil.buildMonthGrid(today).forEachIndexed { r, week ->
+                val used = week.any { it.dayOfMonth != null }
+                views.setViewVisibility(rowIds[r], if (used) android.view.View.VISIBLE else android.view.View.GONE)
+            }
+
             views.setOnClickPendingIntent(R.id.comboWidgetRoot, WidgetLaunch.openCalendarPendingIntent(context, id))
             manager.updateAppWidget(id, views)
         }
