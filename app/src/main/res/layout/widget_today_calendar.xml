@@ -3,7 +3,9 @@
   The 4x2 "Today + Calendar" widget: the Today Clock and the month grid side
   by side. Left: today's day number (cyan) with the full weekday under it
   (teal), the weekday's text size computed in code so it's exactly as wide as
-  the number (see TodayCalendarWidgetProvider). Right: the same month grid as
+  the number (see TodayCalendarWidgetProvider), and a small "WEEK 47 · 44
+  LEFT" line. Right: the month grid, with today as a filled cyan pill and
+  days already past dimmed. Right: the same month grid as
   the Today Calendar widget, using the same view ids so
   MonthWidgetProvider.bindMonth() fills both widgets with one piece of code.
 -->
@@ -33,8 +35,12 @@
             android:layout_height="wrap_content"
             android:includeFontPadding="false"
             android:textColor="@color/retro_cyan"
-            android:textSize="84sp"
+            android:textSize="80sp"
             android:textStyle="bold"
+            android:shadowColor="#9900D9FF"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="18"
             android:text="--" />
 
         <TextView
@@ -49,6 +55,20 @@
             android:letterSpacing="0.04"
             android:singleLine="true"
             android:text="--" />
+
+        <!-- "WEEK 47 · 44 LEFT" — small, dim, under the weekday. -->
+        <TextView
+            android:id="@+id/comboWeekText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:includeFontPadding="false"
+            android:textColor="@color/retro_white_dim"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.12"
+            android:singleLine="true"
+            android:text="" />
     </LinearLayout>
 
     <!-- Thin teal divider between the two halves. -->

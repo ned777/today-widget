@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Today's cell in the 4x2 Today + Calendar grid: a filled cyan pill (text drawn black on top). -->
+<inset xmlns:android="http://schemas.android.com/apk/res/android"
+    android:insetLeft="3dp" android:insetRight="3dp" android:insetTop="1dp" android:insetBottom="1dp">
+    <shape android:shape="rectangle">
+        <solid android:color="@color/retro_cyan" />
+        <corners android:radius="8dp" />
+    </shape>
+</inset>

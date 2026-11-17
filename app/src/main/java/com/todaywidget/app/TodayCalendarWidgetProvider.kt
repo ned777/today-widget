@@ -29,7 +29,7 @@ class TodayCalendarWidgetProvider : AppWidgetProvider() {
 
     companion object {
         // Big day number; the weekday under it is sized to match its width.
-        private const val DAY_SIZE_SP = 92f
+        private const val DAY_SIZE_SP = 80f
         private const val WEEKDAY_LETTER_SPACING = 0.04f
 
         /** Repaints every placed instance of this widget with today's date. */
@@ -49,32 +49,31 @@ class TodayCalendarWidgetProvider : AppWidgetProvider() {
             views.setTextViewText(R.id.comboDayText, dayString)
             views.setTextViewText(R.id.comboWeekdayText, weekday)
 
-            // Sizes in raw px off the device's stable (un-zoomed) density, same
-            // as the Today Clock, so "Display size" zoom doesn't change them.
-            val metrics = DateWidgetProvider.stableMetrics(context)
-            val daySizePx = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, DAY_SIZE_SP, metrics)
-            views.setTextViewTextSize(R.id.comboDayText, TypedValue.COMPLEX_UNIT_PX, daySizePx)
-
-            // Width of the number as drawn, then the weekday size that makes the
-            // weekday exactly that wide. Width scales linearly with text size, so
-            // one measurement at a probe size gives the exact answer.
-            val dayWidthPx = Paint().apply {
+            // Sizes are plain sp (like the rest of the layout), NOT the Today Clock's
+            // stable-density px: on a phone running a lowered screen resolution the
+            // stable density is far higher than the real one, which blew the number
+            // up so only "1" fit. The weekday is sized as a ratio of the number,
+            // which doesn't depend on density at all.
+            views.setTextViewTextSize(R.id.comboDayText, TypedValue.COMPLEX_UNIT_SP, DAY_SIZE_SP)
+            val probe = 100f
+            val dayWidth = Paint().apply {
                 typeface = Typeface.DEFAULT_BOLD
-                textSize = daySizePx
+                textSize = probe
             }.measureText(dayString)
-            val probePx = 100f
-            val weekdayAtProbe = Paint().apply {
+            val weekdayWidth = Paint().apply {
                 typeface = Typeface.DEFAULT_BOLD
-                textSize = probePx
+                textSize = probe
                 letterSpacing = WEEKDAY_LETTER_SPACING
             }.measureText(weekday)
-            if (weekdayAtProbe > 0f) {
-                views.setTextViewTextSize(
-                    R.id.comboWeekdayText, TypedValue.COMPLEX_UNIT_PX, probePx * dayWidthPx / weekdayAtProbe
-                )
+            if (weekdayWidth > 0f) {
+                views.setTextViewTextSize(R.id.comboWeekdayText, TypedValue.COMPLEX_UNIT_SP, DAY_SIZE_SP * dayWidth / weekdayWidth)
             }
 
-            MonthWidgetProvider.bindMonth(context, views, today)
+            val week = today.get(java.time.temporal.IsoFields.WEEK_OF_WEEK_BASED_YEAR)
+            val daysLeft = today.lengthOfYear() - today.dayOfYear
+            views.setTextViewText(R.id.comboWeekText, "WEEK $week · $daysLeft LEFT")
+
+            MonthWidgetProvider.bindMonth(context, views, today, highlightStyle = true)
 
             views.setOnClickPendingIntent(R.id.comboWidgetRoot, WidgetLaunch.openCalendarPendingIntent(context, id))
             manager.updateAppWidget(id, views)

@@ -48,7 +48,7 @@ class MonthWidgetProvider : AppWidgetProvider() {
          * Shared with the 4x2 Today + Calendar widget, whose layout reuses the
          * same view ids (see widget_today_calendar.xml).
          */
-        fun bindMonth(context: Context, views: RemoteViews, today: java.time.LocalDate) {
+        fun bindMonth(context: Context, views: RemoteViews, today: java.time.LocalDate, highlightStyle: Boolean = false) {
             views.setTextViewText(R.id.monthTitleText, CalendarUtil.monthTitle(today))
 
             CalendarUtil.weekdayHeaders().forEachIndexed { index, label ->
@@ -60,9 +60,29 @@ class MonthWidgetProvider : AppWidgetProvider() {
                 row.forEachIndexed { c, cell ->
                     val cellId = cellIds[r][c]
                     views.setTextViewText(cellId, cell.dayOfMonth?.toString() ?: "")
-                    // "You are here" is just a color swap now — no circle fill.
-                    val color = if (cell.isToday) R.color.retro_cyan else R.color.retro_white
-                    views.setTextColor(cellId, context.getColor(color))
+                    if (!highlightStyle) {
+                        // 2x2 Today Calendar: "you are here" is just a color swap — no fill.
+                        val color = if (cell.isToday) R.color.retro_cyan else R.color.retro_white
+                        views.setTextColor(cellId, context.getColor(color))
+                    } else {
+                        // 4x2 Today + Calendar: today is a filled cyan pill with black
+                        // bold-looking text, days already past are dimmed. Background is
+                        // set (or cleared) on EVERY cell, since launchers reapply updates
+                        // onto the existing views and yesterday's pill would otherwise stick.
+                        val day = cell.dayOfMonth
+                        val color = when {
+                            cell.isToday -> R.color.black
+                            day != null && day < today.dayOfMonth -> R.color.retro_white_dim
+                            else -> R.color.retro_white
+                        }
+                        views.setTextColor(cellId, context.getColor(color))
+                        views.setInt(cellId, "setBackgroundResource", if (cell.isToday) R.drawable.today_pill else 0)
+                        if (cell.isToday && day != null) {
+                            val bold = android.text.SpannableString(day.toString())
+                            bold.setSpan(android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, bold.length, 0)
+                            views.setTextViewText(cellId, bold)
+                        }
+                    }
                 }
             }
         }
