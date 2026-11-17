@@ -65,8 +65,21 @@
                 android:resource="@xml/month_widget_info" />
         </receiver>
 
+        <!-- The 4x2 Today + Calendar widget — day + weekday beside the month grid. -->
+        <receiver
+            android:name=".TodayCalendarWidgetProvider"
+            android:label="@string/widget_label_combo"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/today_calendar_widget_info" />
+        </receiver>
+
         <!--
-          Repaints both the date and month widgets whenever the system tells
+          Repaints the date, month and combined widgets whenever the system tells
           us the date, time, or timezone changed — see DateChangeReceiver.kt
           for why. These three actions are specifically exempted from
           Android 8's crackdown on implicit (manifest-declared) broadcasts,

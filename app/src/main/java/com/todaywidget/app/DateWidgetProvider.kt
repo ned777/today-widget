@@ -85,7 +85,7 @@ class DateWidgetProvider : AppWidgetProvider() {
         // correctly between different physical devices. Font-scale (the
         // separate, deliberate accessibility text-size setting) still applies
         // on top of that stable density.
-        private fun stableMetrics(context: Context): DisplayMetrics {
+        internal fun stableMetrics(context: Context): DisplayMetrics {
             val stableDensity = DisplayMetrics.DENSITY_DEVICE_STABLE / DisplayMetrics.DENSITY_DEFAULT.toFloat()
             val fontScale = context.resources.configuration.fontScale
             return DisplayMetrics().apply {

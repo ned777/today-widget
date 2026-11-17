@@ -6,4 +6,5 @@
     <!-- Shown as each widget's own name in the OS's "add a widget" picker. -->
     <string name="widget_label_date">Today Clock</string>
     <string name="widget_label_month">Today Calendar</string>
+    <string name="widget_label_combo">Today + Calendar</string>
 </resources>

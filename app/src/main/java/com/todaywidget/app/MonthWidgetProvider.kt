@@ -43,18 +43,12 @@ class MonthWidgetProvider : AppWidgetProvider() {
         listOf(R.id.cell_5_0, R.id.cell_5_1, R.id.cell_5_2, R.id.cell_5_3, R.id.cell_5_4, R.id.cell_5_5, R.id.cell_5_6)
         )
 
-        /** Repaints every placed instance of this widget with the current month. */
-        fun updateAll(context: Context) {
-            val manager = AppWidgetManager.getInstance(context)
-            val ids = manager.getAppWidgetIds(ComponentName(context, MonthWidgetProvider::class.java))
-            ids.forEach { updateOneWidget(context, manager, it) }
-        }
-
-        private fun updateOneWidget(context: Context, manager: AppWidgetManager, id: Int) {
-            val views = RemoteViews(context.packageName, R.layout.widget_month)
-            WidgetCorners.apply(views, R.id.monthWidgetRoot, manager, id)
-            val today = CalendarUtil.today()
-
+        /**
+         * Fills the month title, weekday headers and 6x7 day grid in [views].
+         * Shared with the 4x2 Today + Calendar widget, whose layout reuses the
+         * same view ids (see widget_today_calendar.xml).
+         */
+        fun bindMonth(context: Context, views: RemoteViews, today: java.time.LocalDate) {
             views.setTextViewText(R.id.monthTitleText, CalendarUtil.monthTitle(today))
 
             CalendarUtil.weekdayHeaders().forEachIndexed { index, label ->
@@ -71,6 +65,21 @@ class MonthWidgetProvider : AppWidgetProvider() {
                     views.setTextColor(cellId, context.getColor(color))
                 }
             }
+        }
+
+        /** Repaints every placed instance of this widget with the current month. */
+        fun updateAll(context: Context) {
+            val manager = AppWidgetManager.getInstance(context)
+            val ids = manager.getAppWidgetIds(ComponentName(context, MonthWidgetProvider::class.java))
+            ids.forEach { updateOneWidget(context, manager, it) }
+        }
+
+        private fun updateOneWidget(context: Context, manager: AppWidgetManager, id: Int) {
+            val views = RemoteViews(context.packageName, R.layout.widget_month)
+            WidgetCorners.apply(views, R.id.monthWidgetRoot, manager, id)
+            val today = CalendarUtil.today()
+
+            bindMonth(context, views, today)
 
             views.setOnClickPendingIntent(R.id.monthWidgetRoot, WidgetLaunch.openCalendarPendingIntent(context, id))
 

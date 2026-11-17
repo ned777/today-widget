@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  4x2 Today + Calendar widget (day number + weekday on the left, month grid
+  on the right). Fixed at 4 columns by 2 rows: minWidth/minHeight use
+  Android's standard N-cell formula (70*N - 30dp: 4 -> 250dp, 2 -> 110dp),
+  resizeMode="none". Same 30-minute safety-net timer as the other two
+  widgets; DateChangeReceiver handles midnight/time/timezone changes.
+-->
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:minWidth="250dp"
+    android:minHeight="110dp"
+    android:minResizeWidth="250dp"
+    android:minResizeHeight="110dp"
+    android:targetCellWidth="4"
+    android:targetCellHeight="2"
+    android:updatePeriodMillis="1800000"
+    android:initialLayout="@layout/widget_today_calendar"
+    android:resizeMode="none"
+    android:widgetCategory="home_screen" />
