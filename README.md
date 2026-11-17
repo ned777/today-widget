@@ -1,6 +1,6 @@
 # Today Widget
 
-Two iOS-style home-screen widgets for Android, plus a minimal app screen.
+Three iOS-style home-screen widgets for Android, plus a minimal app screen.
 
 ## Widgets
 
@@ -9,18 +9,30 @@ Two iOS-style home-screen widgets for Android, plus a minimal app screen.
 - **"Today Calendar"** — a full current-month calendar grid, today
   highlighted. There's no previous/next-month navigation — like iOS's
   equivalent, it always just shows "now."
+- **"Today + Calendar"** (4×2) — the two merged side by side:
+  - **Left:** today's day number (big, cyan, zero-padded) with the full
+    weekday ("TUESDAY") underneath. The weekday's text size is worked out
+    each day so it's exactly as wide as the number (shorter names get bigger
+    text, WEDNESDAY smaller). Under that, a small dim
+    "WEEK 47 · 44 LEFT" (ISO week number and days left in the year).
+  - **Right:** the month grid, past a thin teal divider. Today is a filled
+    cyan pill with a bold black number, and days already past are dimmed.
+    Week rows the month doesn't use are hidden, so the rows that are used
+    fill the height and the space above and below the grid stays even.
 
-Both widgets have their own distinct label (set via `android:label` on each
+Each widget has its own distinct label (set via `android:label` on each
 receiver in the manifest), so when you go to add a widget for this app, the
-OS's own widget picker already shows them as two clearly named, separately
-previewed choices — "Today Clock" and "Today Calendar" — no custom in-app
-picker needed.
+OS's own widget picker already shows them as clearly named, separately
+previewed choices — "Today Clock", "Today Calendar" and "Today + Calendar" —
+no custom in-app picker needed.
 
-Both widgets:
+All three widgets:
 - Refresh themselves automatically at midnight (and on manual clock/timezone
   changes), so they never freeze on a stale date — see `DateChangeReceiver.kt`.
 - Open the phone's own default calendar app when tapped, the same way
   tapping iOS's Calendar widgets hands off to the Calendar app.
+- Repaint right after the app is updated (`MY_PACKAGE_REPLACED`), so they
+  never sit on their bare placeholder layout after a reinstall.
 
 ## Screenshots
 
@@ -31,14 +43,19 @@ Both widgets:
 
 ## Theme
 
-Dark retro cards with a 2dp yellow outline. Weekday labels are teal, the
-month label is white, and the day number / "today" highlight is cyan.
+Pitch-black cards with a 2dp teal outline, matching the rest of the widget
+family (Weather Donkey, Garage, SysMon). Weekday labels are teal, the month
+label is white, and the day number / "today" highlight is cyan.
 
 ## Project layout
 
-- `CalendarUtil.kt` — all the date/month math, shared by both widgets.
-- `DateWidgetProvider.kt` / `MonthWidgetProvider.kt` — each widget's brain.
-- `DateChangeReceiver.kt` — keeps both widgets in sync with the real date.
+- `CalendarUtil.kt` — all the date/month math, shared by every widget.
+- `DateWidgetProvider.kt` / `MonthWidgetProvider.kt` /
+  `TodayCalendarWidgetProvider.kt` — each widget's brain.
+  `MonthWidgetProvider.bindMonth()` fills the month grid for both the 2×2
+  calendar and the 4×2 combined widget.
+- `DateChangeReceiver.kt` — keeps every widget in sync with the real date
+  (midnight, clock/timezone changes, app updates).
 - `WidgetLaunch.kt` — builds the "open the default calendar app" tap intent.
 - `MainActivity.kt` — the app icon's own simple "today" screen.
 
