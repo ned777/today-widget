@@ -38,10 +38,6 @@
             android:textColor="@color/retro_cyan"
             android:textSize="80sp"
             android:textStyle="bold"
-            android:shadowColor="#9900D9FF"
-            android:shadowDx="0"
-            android:shadowDy="0"
-            android:shadowRadius="18"
             android:text="--" />
 
         <TextView
