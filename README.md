@@ -11,11 +11,12 @@ Three iOS-style home-screen widgets for Android, plus a minimal app screen.
   equivalent, it always just shows "now."
 - **"Today + Calendar"** (4×2) — the two merged side by side:
   - **Left:** today's day number (big, cyan, zero-padded) with the full
-    weekday ("TUESDAY") underneath. The weekday's text size is worked out
-    each day so it's exactly as wide as the number (shorter names get bigger
-    text, WEDNESDAY smaller). Under that, a small dim
+    weekday ("TUESDAY") underneath. Sizes match the Weather Donkey Wide
+    widget so the two look like a set: the number is 60sp like its
+    temperature, the weekday 14sp like its city name. Under that, a small dim
     "WEEK 47 · 44 LEFT" (ISO week number and days left in the year).
-  - **Right:** the month grid, past a thin teal divider. Today is a filled
+  - **Right:** the month grid, past a thin bright-teal divider (80% teal,
+    same as the Weather Donkey Wide lines). Today is a filled
     cyan pill with a bold black number, and days already past are dimmed.
     Week rows the month doesn't use are hidden, so the rows that are used
     fill the height and the space above and below the grid stays even.
