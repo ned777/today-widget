@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:includeFontPadding="false"
             android:textColor="@color/retro_cyan"
-            android:textSize="80sp"
+            android:textSize="60sp"
             android:textStyle="bold"
             android:text="--" />
 
@@ -47,7 +47,7 @@
             android:layout_marginTop="2dp"
             android:includeFontPadding="false"
             android:textColor="@color/retro_teal"
-            android:textSize="18sp"
+            android:textSize="14sp"
             android:textStyle="bold"
             android:letterSpacing="0.04"
             android:singleLine="true"
@@ -68,7 +68,7 @@
             android:text="" />
     </LinearLayout>
 
-    <!-- Thin teal divider between the two halves. -->
+    <!-- Thin bright-teal divider between the two halves. -->
     <TextView
         android:layout_width="1dp"
         android:layout_height="match_parent"

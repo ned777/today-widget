@@ -4,8 +4,6 @@ import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.ComponentName
 import android.content.Context
-import android.graphics.Paint
-import android.graphics.Typeface
 import android.os.Bundle
 import android.util.TypedValue
 import android.widget.RemoteViews
@@ -28,9 +26,10 @@ import java.util.Locale
 class TodayCalendarWidgetProvider : AppWidgetProvider() {
 
     companion object {
-        // Big day number; the weekday under it is sized to match its width.
-        private const val DAY_SIZE_SP = 80f
-        private const val WEEKDAY_LETTER_SPACING = 0.04f
+        // Match the Weather Wide widget: day number = its temperature (60sp),
+        // weekday = its city name (14sp), so the two widgets look like a set.
+        private const val DAY_SIZE_SP = 60f
+        private const val WEEKDAY_SIZE_SP = 14f
 
         /** Repaints every placed instance of this widget with today's date. */
         fun updateAll(context: Context) {
@@ -52,22 +51,9 @@ class TodayCalendarWidgetProvider : AppWidgetProvider() {
             // Sizes are plain sp (like the rest of the layout), NOT the Today Clock's
             // stable-density px: on a phone running a lowered screen resolution the
             // stable density is far higher than the real one, which blew the number
-            // up so only "1" fit. The weekday is sized as a ratio of the number,
-            // which doesn't depend on density at all.
+            // up so only "1" fit.
             views.setTextViewTextSize(R.id.comboDayText, TypedValue.COMPLEX_UNIT_SP, DAY_SIZE_SP)
-            val probe = 100f
-            val dayWidth = Paint().apply {
-                typeface = Typeface.DEFAULT_BOLD
-                textSize = probe
-            }.measureText(dayString)
-            val weekdayWidth = Paint().apply {
-                typeface = Typeface.DEFAULT_BOLD
-                textSize = probe
-                letterSpacing = WEEKDAY_LETTER_SPACING
-            }.measureText(weekday)
-            if (weekdayWidth > 0f) {
-                views.setTextViewTextSize(R.id.comboWeekdayText, TypedValue.COMPLEX_UNIT_SP, DAY_SIZE_SP * dayWidth / weekdayWidth)
-            }
+            views.setTextViewTextSize(R.id.comboWeekdayText, TypedValue.COMPLEX_UNIT_SP, WEEKDAY_SIZE_SP)
 
             val week = today.get(java.time.temporal.IsoFields.WEEK_OF_WEEK_BASED_YEAR)
             val daysLeft = today.lengthOfYear() - today.dayOfYear

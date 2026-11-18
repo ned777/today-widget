@@ -14,8 +14,8 @@
     <color name="retro_yellow">#FFD400</color>
     <color name="retro_cyan">#00D9FF</color>
     <color name="retro_teal">#00E0B8</color>
-    <!-- 35% teal: the divider between the two halves of the 4x2 Today + Calendar widget. -->
-    <color name="retro_teal_dim">#5900E0B8</color>
+    <!-- 80% teal: the divider between the two halves of the 4x2 Today + Calendar widget. -->
+    <color name="retro_teal_dim">#CC00E0B8</color>
     <color name="retro_white">#F5F5FF</color>
     <color name="retro_white_dim">#8C8C99</color>
 </resources>
