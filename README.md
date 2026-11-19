@@ -9,7 +9,7 @@ Three iOS-style home-screen widgets for Android, plus a minimal app screen.
 - **"Today Calendar"** — a full current-month calendar grid, today
   highlighted. There's no previous/next-month navigation — like iOS's
   equivalent, it always just shows "now."
-- **"Today + Calendar"** (4×2) — the two merged side by side:
+- **"Today + Calendar"** (4×2, resizable) — the two merged side by side:
   - **Left:** today's day number (big, cyan, zero-padded) with the full
     weekday ("TUESDAY") underneath. Sizes match the Weather Donkey Wide
     widget so the two look like a set: the number is 60sp like its
@@ -20,6 +20,13 @@ Three iOS-style home-screen widgets for Android, plus a minimal app screen.
     cyan pill with a bold black number, and days already past are dimmed.
     Week rows the month doesn't use are hidden, so the rows that are used
     fill the height and the space above and below the grid stays even.
+  - **Resizable** (long-press → drag the handles), down to 3 columns × 1 row.
+    Smaller sizes drop sections instead of squeezing them (phone's 5-column grid):
+    5 columns shows everything; 4 columns hides the "WEEK · LEFT" line;
+    3 columns, or 1 row tall, hides the month grid so the big date fills the
+    widget (the week line comes back at 3 columns, not at 1 row).
+    `TodayCalendarWidgetProvider` reads the size from the widget options and
+    redraws on every resize.
 
 Each widget has its own distinct label (set via `android:label` on each
 receiver in the manifest), so when you go to add a widget for this app, the
