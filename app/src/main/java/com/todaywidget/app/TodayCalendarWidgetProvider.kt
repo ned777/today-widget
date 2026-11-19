@@ -70,6 +70,21 @@ class TodayCalendarWidgetProvider : AppWidgetProvider() {
                 views.setViewVisibility(rowIds[r], if (used) android.view.View.VISIBLE else android.view.View.GONE)
             }
 
+            // Resized smaller → drop sections instead of squeezing. One UI reports ~91dp
+            // per column and ~116dp per row (5 cols = 434dp, 2 rows = 233dp): at 4 cols the
+            // small "WEEK · LEFT" line goes; at 3 cols, or only 1 row tall, the month grid
+            // goes too and the date fills the widget.
+            val options = manager.getAppWidgetOptions(id)
+            val widthDp = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH, 434)
+            val heightDp = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT, 233)
+            val showGrid = widthDp >= 300 && heightDp >= 180
+            val showWeek = !showGrid || widthDp >= 400
+            fun show(viewId: Int, visible: Boolean) =
+                views.setViewVisibility(viewId, if (visible) android.view.View.VISIBLE else android.view.View.GONE)
+            show(R.id.comboDivider, showGrid)
+            show(R.id.comboGridPanel, showGrid)
+            show(R.id.comboWeekText, showWeek && heightDp >= 180)
+
             views.setOnClickPendingIntent(R.id.comboWidgetRoot, WidgetLaunch.openCalendarPendingIntent(context, id))
             manager.updateAppWidget(id, views)
         }
@@ -80,8 +95,8 @@ class TodayCalendarWidgetProvider : AppWidgetProvider() {
         appWidgetIds.forEach { updateOneWidget(context, appWidgetManager, it) }
     }
 
-    // The launcher re-scales the widget when the home-screen grid changes; redraw
-    // so the border radius follows the new scale.
+    // Resized, or the launcher re-scaled it: redraw so the shown sections and the
+    // border radius follow the new size.
     override fun onAppWidgetOptionsChanged(context: Context, appWidgetManager: AppWidgetManager, appWidgetId: Int, newOptions: Bundle) {
         updateOneWidget(context, appWidgetManager, appWidgetId)
     }

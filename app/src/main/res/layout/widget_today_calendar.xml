@@ -24,6 +24,7 @@
 
     <!-- LEFT: day number + full weekday, centered in its half. -->
     <LinearLayout
+        android:id="@+id/comboLeftPanel"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="0.85"
@@ -70,6 +71,7 @@
 
     <!-- Thin bright-teal divider between the two halves. -->
     <TextView
+        android:id="@+id/comboDivider"
         android:layout_width="1dp"
         android:layout_height="match_parent"
         android:layout_marginTop="10dp"
@@ -80,6 +82,7 @@
 
     <!-- RIGHT: the month grid (same ids as widget_month.xml). -->
     <LinearLayout
+        android:id="@+id/comboGridPanel"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1.15"
