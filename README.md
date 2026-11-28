@@ -51,7 +51,7 @@ All three widgets:
 
 ## Theme
 
-Pitch-black cards with a 4dp teal outline, matching the rest of the widget
+Pitch-black cards with a 2dp teal outline, matching the rest of the widget
 family (Weather Donkey, Garage, SysMon). Weekday labels are teal, the month
 label is white, and the day number / "today" highlight is cyan.
 
